@@ -3,10 +3,13 @@ import random
 from urllib.parse import urlparse
 
 import requests
+import telegram
 from dotenv import dotenv_values
 
 
 NASA_API_KEY = dotenv_values(".env")["NASA_API_KEY"]
+TG_TOKEN = dotenv_values(".env")["TG_TOKEN"]
+CHAT_ID = "@TestChannelYarBots"
 
 
 def get_request(url, headers=None, params=None):
@@ -70,6 +73,8 @@ def get_file_extension(link):
 
 
 def main():
+    bot = telegram.Bot(token=TG_TOKEN)
+    bot.send_message(text='Hi John!', chat_id=CHAT_ID)
     nasa_apod_link = f"https://api.nasa.gov/planetary/apod?api_key={NASA_API_KEY}"
     nasa_epic_link = f"https://api.nasa.gov/EPIC/api/natural/images?api_key={NASA_API_KEY}"
     pic_url = "https://upload.wikimedia.org/wikipedia/commons/3/3f/HST-SM4.jpeg"
