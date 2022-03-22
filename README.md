@@ -1,4 +1,4 @@
-# Загрузка фото NASA
+# Загрузка и рассылка фото NASA и SPACEX
 
 Данный скрипт позволяет загружать фотографии с сервисов [NASA EPIC](https://api.nasa.gov/#epic) и [NASA APOD](https://api.nasa.gov/#apod)
 и фотографии [последнего запуска SPACEX](https://documenter.getpostman.com/view/2025350/RWaEzAiG#bc65ba60-decf-4289-bb04-4ca9df01b9c1),
