@@ -56,9 +56,6 @@ def infinity_posting(bot):
 
 def main():
     bot = telegram.Bot(token=TG_TOKEN)
-    fetch_spacex_last_launch()
-    fetch_nasa_apod()
-    fetch_nasa_epic()
     infinity_posting(bot)
 
 
