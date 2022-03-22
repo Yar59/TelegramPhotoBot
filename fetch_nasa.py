@@ -1,11 +1,17 @@
 import random
+import requests
+
 from main import get_request, save_pic, get_file_extension, NASA_API_KEY
+from main import NASA_APOD_LINK, NASA_EPIC_LINK
 
 
-def fetch_nasa_apod(link):
-    count = int(random.randrange(30, 50))
+def fetch_nasa_apod():
+    try:
+        count = int(random.randrange(30, 50))
+    except requests.exceptions.HTTPError as error:
+        exit("Can't get data from NASA-APOD server:\n{0}".format(error))
     count_params = {"count": count}
-    nasa_links = get_request(link, params=count_params).json()
+    nasa_links = get_request(NASA_APOD_LINK, params=count_params).json()
     for number, apod in enumerate(nasa_links):
         pic_url = apod["url"]
         pic_extension = get_file_extension(pic_url)
@@ -13,8 +19,11 @@ def fetch_nasa_apod(link):
         save_pic(pic_url, pic_path)
 
 
-def fetch_nasa_epic(link):
-    epic_pictures = get_request(link).json()
+def fetch_nasa_epic():
+    try:
+        epic_pictures = get_request(NASA_EPIC_LINK).json()
+    except requests.exceptions.HTTPError as error:
+        exit("Can't get data from NASA-EPIC server:\n{0}".format(error))
     for number, picture in enumerate(epic_pictures):
         pic_name = picture["image"]
         year = pic_name[8:12]
