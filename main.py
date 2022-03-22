@@ -1,6 +1,7 @@
 import os
 import random
 from urllib.parse import urlparse
+from time import sleep
 
 import requests
 import telegram
@@ -9,7 +10,8 @@ from dotenv import dotenv_values
 
 NASA_API_KEY = dotenv_values(".env")["NASA_API_KEY"]
 TG_TOKEN = dotenv_values(".env")["TG_TOKEN"]
-CHAT_ID = "@TestChannelYarBots"
+CHAT_ID = dotenv_values(".env")["CHAT_ID"]
+POSTING_PERIOD = dotenv_values(".env")["POSTING_PERIOD"]
 
 
 def get_request(url, headers=None, params=None):
@@ -72,9 +74,18 @@ def get_file_extension(link):
     return os.path.splitext(urlparse(link).path)[1]
 
 
+def infinity_posting(bot):
+    while True:
+        for address, dirs, files in os.walk("images"):
+            for file in files:
+                image = address+'/'+file
+                bot.send_photo(chat_id=CHAT_ID, photo=open(image, "rb"))
+                sleep(float(POSTING_PERIOD))
+
+
 def main():
     bot = telegram.Bot(token=TG_TOKEN)
-    bot.send_message(text='Hi John!', chat_id=CHAT_ID)
+    bot.send_message(text='Бот был перезагружен!', chat_id=CHAT_ID)
     nasa_apod_link = f"https://api.nasa.gov/planetary/apod?api_key={NASA_API_KEY}"
     nasa_epic_link = f"https://api.nasa.gov/EPIC/api/natural/images?api_key={NASA_API_KEY}"
     pic_url = "https://upload.wikimedia.org/wikipedia/commons/3/3f/HST-SM4.jpeg"
@@ -84,6 +95,7 @@ def main():
     fetch_spacex_last_launch(spacex_link)
     fetch_nasa_apod(nasa_apod_link)
     fetch_nasa_epic(nasa_epic_link)
+    infinity_posting(bot)
 
 
 if __name__ == '__main__':
