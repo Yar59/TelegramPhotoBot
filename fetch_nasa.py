@@ -34,7 +34,6 @@ def get_file_extension(link):
 
 def fetch_nasa_apod():
     count = int(random.randrange(30, 50))
-    exit("Can't get data from NASA-APOD server:\n{0}".format(error))
     count_params = {"count": count}
     nasa_links = get_request(NASA_APOD_LINK, params=count_params).json()
     for number, apod in enumerate(nasa_links):
