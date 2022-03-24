@@ -19,7 +19,9 @@ def post_endlessly(bot):
         for root, dirs, files in os.walk("images"):
             for filename in files:
                 image_path = f"{root}/{filename}"
-                bot.send_photo(chat_id=CHAT_ID, photo=open(image_path, "rb"))
+                with open(image_path, "rb") as file:
+                    photo = file.read()
+                bot.send_photo(chat_id=CHAT_ID, photo=photo)
                 sleep(float(POSTING_PERIOD))
 
 
