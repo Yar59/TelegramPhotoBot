@@ -24,8 +24,7 @@ def save_pic(pic_url, pic_path, headers=None):
 
 def check_folder(pic_path):
     directory = os.path.dirname(pic_path)
-    if not os.path.exists(directory):
-        os.makedirs(directory)
+    os.makedirs(directory, exist_ok=True)
 
 
 def get_file_extension(link):
