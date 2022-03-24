@@ -14,18 +14,18 @@ NASA_EPIC_LINK = f"https://api.nasa.gov/EPIC/api/natural/images?api_key={NASA_AP
 SPACEX_LINK = "https://api.spacexdata.com/v3/launches/67"
 
 
-def infinity_posting(bot):
+def post_endlessly(bot):
     while True:
-        for address, dirs, files in os.walk("images"):
-            for file in files:
-                image = address+'/'+file
-                bot.send_photo(chat_id=CHAT_ID, photo=open(image, "rb"))
+        for root, dirs, files in os.walk("images"):
+            for filename in files:
+                image_path = f"{root}/{filename}"
+                bot.send_photo(chat_id=CHAT_ID, photo=open(image_path, "rb"))
                 sleep(float(POSTING_PERIOD))
 
 
 def main():
     bot = telegram.Bot(token=TG_TOKEN)
-    infinity_posting(bot)
+    post_endlessly(bot)
 
 
 if __name__ == '__main__':
