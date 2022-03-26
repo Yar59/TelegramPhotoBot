@@ -1,7 +1,7 @@
 import os
 import random
 from urllib.parse import urlparse
-
+from datetime import datetime
 import requests
 
 from main import NASA_APOD_LINK, NASA_EPIC_LINK, NASA_API_KEY
@@ -46,10 +46,10 @@ def fetch_nasa_epic():
     epic_pictures = get_request(NASA_EPIC_LINK).json()
     for number, picture in enumerate(epic_pictures):
         pic_name = picture["image"]
-        year = pic_name[8:12]
-        month = pic_name[12:14]
-        day = pic_name[14:16]
-        pic_url = f"https://api.nasa.gov/EPIC/archive/natural/{year}/{month}/{day}" \
+        date = picture["date"]
+        date = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
+        date = date.strftime("%Y/%m/%d")
+        pic_url = f"https://api.nasa.gov/EPIC/archive/natural/{date}" \
                   f"/png/{pic_name}.png?api_key={NASA_API_KEY}"
         pic_path = f"images/NASA_EPIC/{pic_name}.png"
         save_pic(pic_url, pic_path)
