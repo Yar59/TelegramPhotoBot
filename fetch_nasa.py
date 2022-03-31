@@ -5,20 +5,7 @@ from datetime import datetime
 import requests
 
 from main import NASA_API_KEY
-
-
-def save_pic(pic_url, pic_path, headers=None):
-    if headers is None:
-        headers = {}
-    picture = requests.get(pic_url, headers=headers)
-    check_folder(pic_path)
-    with open(pic_path, 'wb') as file:
-        file.write(picture.content)
-
-
-def check_folder(pic_path):
-    directory = os.path.dirname(pic_path)
-    os.makedirs(directory, exist_ok=True)
+from save_pictures import save_pic
 
 
 def get_file_extension(link):
