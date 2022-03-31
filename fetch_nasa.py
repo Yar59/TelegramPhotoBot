@@ -4,7 +4,11 @@ from urllib.parse import urlparse
 from datetime import datetime
 import requests
 
-from main import NASA_APOD_LINK, NASA_EPIC_LINK, NASA_API_KEY
+from main import NASA_API_KEY
+
+
+NASA_APOD_LINK = f"https://api.nasa.gov/planetary/apod"
+NASA_EPIC_LINK = f"https://api.nasa.gov/EPIC/api/natural/images"
 
 
 def get_request(url, headers=None, params=None):
@@ -33,8 +37,8 @@ def get_file_extension(link):
 
 def fetch_nasa_apod():
     count = int(random.randrange(30, 50))
-    count_params = {"count": count}
-    nasa_links = get_request(NASA_APOD_LINK, params=count_params).json()
+    payload = {"count": count, "api_key": NASA_API_KEY}
+    nasa_links = get_request(NASA_APOD_LINK, params=payload).json()
     for number, apod in enumerate(nasa_links):
         pic_url = apod["url"]
         pic_extension = get_file_extension(pic_url)
@@ -43,7 +47,8 @@ def fetch_nasa_apod():
 
 
 def fetch_nasa_epic():
-    epic_pictures = get_request(NASA_EPIC_LINK).json()
+    payload = {"api_key": NASA_API_KEY}
+    epic_pictures = get_request(NASA_EPIC_LINK, params=payload).json()
     for number, picture in enumerate(epic_pictures):
         pic_name = picture["image"]
         date = picture["date"]

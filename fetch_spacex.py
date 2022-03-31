@@ -1,7 +1,8 @@
 import os
 import requests
 
-from main import SPACEX_LINK
+
+SPACEX_LINK = "https://api.spacexdata.com/v3/launches/67"
 
 
 def get_request(url, headers=None, params=None):

@@ -9,9 +9,7 @@ NASA_API_KEY = dotenv_values(".env")["NASA_API_KEY"]
 TG_TOKEN = dotenv_values(".env")["TG_TOKEN"]
 CHAT_ID = dotenv_values(".env")["CHAT_ID"]
 POSTING_PERIOD = dotenv_values(".env")["POSTING_PERIOD"]
-NASA_APOD_LINK = f"https://api.nasa.gov/planetary/apod?api_key={NASA_API_KEY}"
-NASA_EPIC_LINK = f"https://api.nasa.gov/EPIC/api/natural/images?api_key={NASA_API_KEY}"
-SPACEX_LINK = "https://api.spacexdata.com/v3/launches/67"
+
 
 
 def post_endlessly(bot):
