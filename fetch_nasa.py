@@ -7,16 +7,10 @@ import requests
 from main import NASA_API_KEY
 
 
-def get_request(url, headers=None, params=None):
-    response = requests.get(url, headers=headers, params=params)
-    response.raise_for_status()
-    return response
-
-
 def save_pic(pic_url, pic_path, headers=None):
     if headers is None:
         headers = {}
-    picture = get_request(pic_url, headers=headers)
+    picture = requests.get(pic_url, headers=headers)
     check_folder(pic_path)
     with open(pic_path, 'wb') as file:
         file.write(picture.content)
@@ -35,7 +29,7 @@ def fetch_nasa_apod():
     nasa_apod_link = f"https://api.nasa.gov/planetary/apod"
     count = int(random.randrange(30, 50))
     payload = {"count": count, "api_key": NASA_API_KEY}
-    nasa_links = get_request(nasa_apod_link, params=payload).json()
+    nasa_links = requests.get(nasa_apod_link, params=payload).json()
     for number, apod in enumerate(nasa_links):
         pic_url = apod["url"]
         pic_extension = get_file_extension(pic_url)
@@ -46,7 +40,7 @@ def fetch_nasa_apod():
 def fetch_nasa_epic():
     nasa_epic_link = f"https://api.nasa.gov/EPIC/api/natural/images"
     payload = {"api_key": NASA_API_KEY}
-    epic_pictures = get_request(nasa_epic_link, params=payload).json()
+    epic_pictures = requests.get(nasa_epic_link, params=payload).json()
     for number, picture in enumerate(epic_pictures):
         pic_name = picture["image"]
         date = picture["date"]

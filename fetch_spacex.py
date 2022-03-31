@@ -2,19 +2,10 @@ import os
 import requests
 
 
-SPACEX_LINK = "https://api.spacexdata.com/v3/launches/67"
-
-
-def get_request(url, headers=None, params=None):
-    response = requests.get(url, headers=headers, params=params)
-    response.raise_for_status()
-    return response
-
-
 def save_pic(pic_url, pic_path, headers=None):
     if headers is None:
         headers = {}
-    picture = get_request(pic_url, headers=headers)
+    picture = requests.get(pic_url, headers=headers)
     check_folder(pic_path)
     with open(pic_path, 'wb') as file:
         file.write(picture.content)
@@ -26,7 +17,8 @@ def check_folder(pic_path):
 
 
 def fetch_spacex_last_launch():
-    response = get_request(SPACEX_LINK)
+    spacex_link = "https://api.spacexdata.com/v3/launches/67"
+    response = requests.get(spacex_link)
     spacex_links = response.json()['links']['flickr_images']
     for number, pic_url in enumerate(spacex_links):
         pic_path = f"images/SpaceX{number}.jpeg"
