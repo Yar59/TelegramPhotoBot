@@ -1,7 +1,8 @@
 import os
 import random
-from urllib.parse import urlparse
 from datetime import datetime
+from urllib.parse import urlparse
+
 import requests
 
 from main import NASA_API_KEY

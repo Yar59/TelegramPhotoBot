@@ -5,12 +5,6 @@ import telegram
 from dotenv import dotenv_values
 
 
-NASA_API_KEY = dotenv_values(".env")["NASA_API_KEY"]
-TG_TOKEN = dotenv_values(".env")["TG_TOKEN"]
-CHAT_ID = dotenv_values(".env")["CHAT_ID"]
-POSTING_PERIOD = dotenv_values(".env")["POSTING_PERIOD"]
-
-
 def post_endlessly(bot):
     while True:
         for root, dirs, files in os.walk("images"):
