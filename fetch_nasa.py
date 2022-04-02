@@ -18,6 +18,7 @@ def fetch_nasa_apod():
     count = int(random.randrange(30, 50))
     payload = {"count": count, "api_key": NASA_API_KEY}
     nasa_links = requests.get(nasa_apod_link, params=payload).json()
+    nasa_links.raise_for_status
     for number, apod in enumerate(nasa_links):
         pic_url = apod["url"]
         pic_extension = get_file_extension(pic_url)
@@ -29,6 +30,7 @@ def fetch_nasa_epic():
     nasa_epic_link = f"https://api.nasa.gov/EPIC/api/natural/images"
     payload = {"api_key": NASA_API_KEY}
     epic_pictures = requests.get(nasa_epic_link, params=payload).json()
+    epic_pictures.raise_for_status
     for number, picture in enumerate(epic_pictures):
         pic_name = picture["image"]
         date = picture["date"]
