@@ -16,14 +16,10 @@ def post_endlessly(bot):
                 sleep(float(POSTING_PERIOD))
 
 
-def main():
-    bot = telegram.Bot(token=TG_TOKEN)
-    post_endlessly(bot)
-
-
 if __name__ == '__main__':
     NASA_API_KEY = dotenv_values(".env")["NASA_API_KEY"]
     TG_TOKEN = dotenv_values(".env")["TG_TOKEN"]
     CHAT_ID = dotenv_values(".env")["CHAT_ID"]
     POSTING_PERIOD = dotenv_values(".env")["POSTING_PERIOD"]
-    main()
+    bot = telegram.Bot(token=TG_TOKEN)
+    post_endlessly(bot)
