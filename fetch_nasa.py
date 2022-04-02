@@ -34,10 +34,11 @@ def fetch_nasa_epic():
         date = picture["date"]
         date = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
         date = date.strftime("%Y/%m/%d")
+        payload = {"api_key": NASA_API_KEY}
         pic_url = f"https://api.nasa.gov/EPIC/archive/natural/{date}" \
-                  f"/png/{pic_name}.png?api_key={NASA_API_KEY}"
+                  f"/png/{pic_name}.png"
         pic_path = f"images/NASA_EPIC/{pic_name}.png"
-        save_pic(pic_url, pic_path)
+        save_pic(pic_url, pic_path, params=payload)
 
 
 if __name__ == '__main__':
