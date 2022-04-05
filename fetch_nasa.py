@@ -17,9 +17,9 @@ def fetch_nasa_apod(nasa_api_key):
     nasa_apod_link = f"https://api.nasa.gov/planetary/apod"
     count = int(random.randrange(30, 50))
     payload = {"count": count, "api_key": nasa_api_key}
-    nasa_links = requests.get(nasa_apod_link, params=payload).json()
+    nasa_links = requests.get(nasa_apod_link, params=payload)
     nasa_links.raise_for_status
-    for number, apod in enumerate(nasa_links):
+    for number, apod in enumerate(nasa_links.json()):
         pic_url = apod["url"]
         pic_extension = get_file_extension(pic_url)
         pic_path = f"images/NASA_APOD/NASA{number}{pic_extension}"
@@ -29,9 +29,9 @@ def fetch_nasa_apod(nasa_api_key):
 def fetch_nasa_epic(nasa_api_key):
     nasa_epic_link = f"https://api.nasa.gov/EPIC/api/natural/images"
     payload = {"api_key": nasa_api_key}
-    epic_pictures = requests.get(nasa_epic_link, params=payload).json()
+    epic_pictures = requests.get(nasa_epic_link, params=payload)
     epic_pictures.raise_for_status
-    for number, picture in enumerate(epic_pictures):
+    for number, picture in enumerate(epic_pictures.json()):
         pic_name = picture["image"]
         date = picture["date"]
         date = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
