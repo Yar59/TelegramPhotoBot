@@ -23,6 +23,8 @@ def fetch_nasa_apod(nasa_api_key):
         pic_url = apod["url"]
         pic_extension = get_file_extension(pic_url)
         pic_path = f"images/NASA_APOD/NASA{number}{pic_extension}"
+        directory = os.path.dirname(pic_path)
+        os.makedirs(directory, exist_ok=True)
         save_pic(pic_url, pic_path)
 
 
@@ -40,6 +42,8 @@ def fetch_nasa_epic(nasa_api_key):
         pic_url = f"https://api.nasa.gov/EPIC/archive/natural/{date}" \
                   f"/png/{pic_name}.png"
         pic_path = f"images/NASA_EPIC/{pic_name}.png"
+        directory = os.path.dirname(pic_path)
+        os.makedirs(directory, exist_ok=True)
         save_pic(pic_url, pic_path, params=payload)
 
 

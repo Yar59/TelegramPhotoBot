@@ -1,3 +1,5 @@
+import os
+
 import requests
 
 from save_pictures import save_pic
@@ -10,6 +12,8 @@ def fetch_spacex_last_launch():
     spacex_links = response.json()['links']['flickr_images']
     for number, pic_url in enumerate(spacex_links):
         pic_path = f"images/SpaceX{number}.jpeg"
+        directory = os.path.dirname(pic_path)
+        os.makedirs(directory, exist_ok=True)
         save_pic(pic_url, pic_path)
 
 
