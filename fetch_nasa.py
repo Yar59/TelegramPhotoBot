@@ -19,12 +19,12 @@ def fetch_nasa_apod(nasa_api_key):
     payload = {"count": count, "api_key": nasa_api_key}
     nasa_links = requests.get(nasa_apod_link, params=payload)
     nasa_links.raise_for_status()
+    directory = "images/NASA_APOD"
+    os.makedirs(directory, exist_ok=True)
     for number, apod in enumerate(nasa_links.json()):
         pic_url = apod["url"]
         pic_extension = get_file_extension(pic_url)
-        pic_path = f"images/NASA_APOD/NASA{number}{pic_extension}"
-        directory = os.path.dirname(pic_path)
-        os.makedirs(directory, exist_ok=True)
+        pic_path = f"{directory}/NASA{number}{pic_extension}"
         try:
             save_pic(pic_url, pic_path, params=payload)
         except requests.exceptions.HTTPError as error:
@@ -36,6 +36,8 @@ def fetch_nasa_epic(nasa_api_key):
     payload = {"api_key": nasa_api_key}
     epic_pictures = requests.get(nasa_epic_link, params=payload)
     epic_pictures.raise_for_status()
+    directory = "images/NASA_EPIC"
+    os.makedirs(directory, exist_ok=True)
     for number, picture in enumerate(epic_pictures.json()):
         pic_name = picture["image"]
         date = picture["date"]
@@ -43,9 +45,7 @@ def fetch_nasa_epic(nasa_api_key):
         date = date.strftime("%Y/%m/%d")
         pic_url = f"https://api.nasa.gov/EPIC/archive/natural/{date}" \
                   f"/png/{pic_name}.png"
-        pic_path = f"images/NASA_EPIC/{pic_name}.png"
-        directory = os.path.dirname(pic_path)
-        os.makedirs(directory, exist_ok=True)
+        pic_path = f"{directory}/{pic_name}.png"
         try:
             save_pic(pic_url, pic_path, params=payload)
         except requests.exceptions.HTTPError as error:
