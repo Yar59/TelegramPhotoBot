@@ -17,7 +17,7 @@ def fetch_spacex_last_launch():
         try:
             save_pic(pic_url, pic_path)
         except requests.exceptions.HTTPError as error:
-            exit("Failed to save image:\n{0}".format(error))
+            exit("Failed to save image from SpaceX:\n{0}".format(error))
 
 
 if __name__ == '__main__':
