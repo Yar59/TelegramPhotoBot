@@ -15,7 +15,7 @@ def get_file_extension(link):
 
 def fetch_nasa_apod(nasa_api_key):
     nasa_apod_link = f"https://api.nasa.gov/planetary/apod"
-    count = int(random.randrange(30, 50))
+    count = random.randint(30, 50)
     payload = {"count": count, "api_key": nasa_api_key}
     nasa_links = requests.get(nasa_apod_link, params=payload)
     nasa_links.raise_for_status()
