@@ -1,3 +1,4 @@
+import logging
 import os
 import random
 from datetime import datetime
@@ -28,7 +29,7 @@ def fetch_nasa_apod(nasa_api_key):
         try:
             save_pic(pic_url, pic_path, params=payload)
         except requests.exceptions.HTTPError as error:
-            print("Failed to save image from NASA-APOD:\n{0}".format(error))
+            logging.error("Failed to save image from NASA-APOD:\n{0}".format(error))
 
 
 def fetch_nasa_epic(nasa_api_key):
@@ -49,7 +50,7 @@ def fetch_nasa_epic(nasa_api_key):
         try:
             save_pic(pic_url, pic_path, params=payload)
         except requests.exceptions.HTTPError as error:
-            print("Failed to save image from NASA-EPIC:\n{0}".format(error))
+            logging.error("Failed to save image from NASA-EPIC:\n{0}".format(error))
 
 
 if __name__ == '__main__':

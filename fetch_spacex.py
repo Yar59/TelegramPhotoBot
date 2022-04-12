@@ -1,3 +1,4 @@
+import logging
 import os
 
 import requests
@@ -17,11 +18,11 @@ def fetch_spacex_last_launch():
         try:
             save_pic(pic_url, pic_path)
         except requests.exceptions.HTTPError as error:
-            exit("Failed to save image from SpaceX:\n{0}".format(error))
+            logging.error("Failed to save image from SpaceX:\n{0}".format(error))
 
 
 if __name__ == '__main__':
     try:
         fetch_spacex_last_launch()
     except requests.exceptions.HTTPError as error:
-        exit("Can't get data from SPACEX server:\n{0}".format(error))
+        logging.error("Can't get data from SPACEX server:\n{0}".format(error))
